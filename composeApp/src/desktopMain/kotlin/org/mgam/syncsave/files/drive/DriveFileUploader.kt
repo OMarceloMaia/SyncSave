@@ -48,27 +48,23 @@ fun uploadFileToGoogleDrive(
             // Request body
             setBody(
                 buildString {
-                    // Metadata
                     append("--$boundary\r\n")
                     append("Content-Type: application/json; charset=UTF-8\r\n")
                     append("Content-Disposition: form-data; name=\"metadata\"\r\n\r\n")
                     append(metadataJson)
                     append("\r\n")
 
-                    // File
                     append("--$boundary\r\n")
                     append("Content-Type: $fileType\r\n")
                     append("Content-Disposition: form-data; name=\"file\"; filename=\"${file.name}\"\r\n\r\n")
-                    append(file.readText())  // File converted to text
+                    append(file.readText())
                     append("\r\n")
 
-                    // End the multipart
                     append("--$boundary--\r\n")
                 }
             )
         }
 
-        // Check the response
         val statusCode = uploadResponse.status
         val responseText = uploadResponse.bodyAsText()
 

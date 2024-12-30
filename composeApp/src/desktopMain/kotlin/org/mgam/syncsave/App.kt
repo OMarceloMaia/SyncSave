@@ -15,13 +15,17 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.mgam.syncsave.files.local.addGameToConfig
 
 @Composable
 @Preview
 fun App() {
     MaterialTheme {
         var isAuthenticated by remember { mutableStateOf(false) }
-        var inputText by remember { mutableStateOf("") }
+        var gameName by remember { mutableStateOf("") }
+        var windowsPath by remember { mutableStateOf("") }
+        var linuxPath by remember { mutableStateOf("") }
+
 
         Column(
             modifier = Modifier.padding(16.dp),
@@ -52,25 +56,25 @@ fun App() {
                 Spacer(modifier = Modifier.width(16.dp))
             }
             TextField(
-                value = inputText,
-                onValueChange = { inputText = it },
+                value = gameName,
+                onValueChange = { gameName = it },
                 label = { Text("Game Name") },
                 modifier = Modifier.fillMaxWidth()
             )
             TextField(
-                value = inputText,
-                onValueChange = { inputText = it },
+                value = windowsPath,
+                onValueChange = { windowsPath = it },
                 label = { Text("Windows Path") },
                 modifier = Modifier.fillMaxWidth()
             )
             TextField(
-                value = inputText,
-                onValueChange = { inputText = it },
+                value = linuxPath,
+                onValueChange = { linuxPath = it },
                 label = { Text("Linux Path") },
                 modifier = Modifier.fillMaxWidth()
             )
             Button(
-                onClick = {  }
+                onClick = { addGameToConfig(gameName, windowsPath, linuxPath) }
             ) {
                 Text("Add Game")
             }
